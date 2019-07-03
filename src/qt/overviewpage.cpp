@@ -209,7 +209,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
     }
     // TRUMP Balance
-    CAmount nTotalBalance = balance + immatureBalance + unconfirmedBalance;
+    CAmount nTotalBalance = balance + unconfirmedBalance;
     CAmount trumpAvailableBalance = nTotalBalance - immatureBalance - nLockedBalance - unconfirmedBalance;
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance + watchImmatureBalance;    
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance; // increment nLockedBalance twice because it was added to
