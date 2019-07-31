@@ -79,7 +79,7 @@ public:
     void setRestartRequired(bool fRequired);
     bool isRestartRequired();
     bool resetSettings;
-
+    bool fCoinControlFeatures;
 private:
     /* Qt-only settings */
     bool fMinimizeToTray;
@@ -87,7 +87,7 @@ private:
     QString language;
     int nDisplayUnit;
     QString strThirdPartyTxUrls;
-    bool fCoinControlFeatures;
+
     bool fHideZeroBalances;
     /* settings that were overriden by command-line */
     QString strOverriddenByCommandLine;

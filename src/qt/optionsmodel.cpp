@@ -74,8 +74,8 @@ void OptionsModel::Init()
     fHideZeroBalances = settings.value("fHideZeroBalances").toBool();
 
     if (!settings.contains("fCoinControlFeatures"))
-        settings.setValue("fCoinControlFeatures", false);
-    fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
+        settings.setValue("fCoinControlFeatures", true);
+    fCoinControlFeatures = settings.value("fCoinControlFeatures").toBool();
 
     if (!settings.contains("fZeromintEnable"))
         settings.setValue("fZeromintEnable", false);
@@ -228,6 +228,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return settings.value("bSpendZeroConfChange");
         case ShowPatriotnodesTab:
             return settings.value("fShowPatriotnodesTab");
+        case CoinControlFeatures:
+            return fCoinControlFeatures;
 #endif
         case StakeSplitThreshold:
             if (pwalletMain)
@@ -244,8 +246,7 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return settings.value("theme");
         case Language:
             return settings.value("language");
-        case CoinControlFeatures:
-            return fCoinControlFeatures;
+
         case DatabaseCache:
             return settings.value("nDatabaseCache");
         case ThreadsScriptVerif:
@@ -334,6 +335,11 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
                 setRestartRequired(true);
             }
             break;
+        case CoinControlFeatures:
+            fCoinControlFeatures = value.toBool();
+            settings.setValue("fCoinControlFeatures", fCoinControlFeatures);
+            emit coinControlFeaturesChanged(fCoinControlFeatures);
+            break;
 #endif
         case StakeSplitThreshold:
             settings.setValue("nStakeSplitThreshold", value.toInt());
@@ -393,11 +399,7 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             settings.setValue("nAnonymizeTrumpCoinAmount", nAnonymizeTrumpCoinAmount);
             emit anonymizeTrumpCoinAmountChanged(nAnonymizeTrumpCoinAmount);
             break;
-        case CoinControlFeatures:
-            fCoinControlFeatures = value.toBool();
-            settings.setValue("fCoinControlFeatures", fCoinControlFeatures);
-            emit coinControlFeaturesChanged(fCoinControlFeatures);
-            break;
+
         case DatabaseCache:
             if (settings.value("nDatabaseCache") != value) {
                 settings.setValue("nDatabaseCache", value);
