@@ -117,7 +117,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("TrumpCoin Core") + " - ";
+    QString windowTitle = tr("TrumpCoin Wallet") + " " + QString::fromStdString(FormatFullVersion());
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -125,9 +125,9 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     enableWallet = false;
 #endif // ENABLE_WALLET
     if (enableWallet) {
-        windowTitle += tr("Wallet");
+        windowTitle += tr("");
     } else {
-        windowTitle += tr("Node");
+        windowTitle += tr("");
     }
     QString userWindowTitle = QString::fromStdString(GetArg("-windowtitle", ""));
     if (!userWindowTitle.isEmpty()) windowTitle += " - " + userWindowTitle;
