@@ -123,7 +123,6 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
         ztrumpObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
     ztrumpObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
-    result.push_back(Pair("zTRUMPsupply", ztrumpObj));
 
     return result;
 }
@@ -323,20 +322,6 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
             "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-            "  \"zTRUMPsupply\" :\n"
-            "  {\n"
-            "     \"1\" : n,            (numeric) supply of 1 zTRUMP denomination\n"
-            "     \"5\" : n,            (numeric) supply of 5 zTRUMP denomination\n"
-            "     \"10\" : n,           (numeric) supply of 10 zTRUMP denomination\n"
-            "     \"50\" : n,           (numeric) supply of 50 zTRUMP denomination\n"
-            "     \"100\" : n,          (numeric) supply of 100 zTRUMP denomination\n"
-            "     \"500\" : n,          (numeric) supply of 500 zTRUMP denomination\n"
-            "     \"1000\" : n,         (numeric) supply of 1000 zTRUMP denomination\n"
-            "     \"5000\" : n,         (numeric) supply of 5000 zTRUMP denomination\n"
-            "     \"total\" : n,        (numeric) The total supply of all zTRUMP denominations\n"
-            "  }\n"
-            "}\n"
-
             "\nResult (for verbose=false):\n"
             "\"data\"             (string) A string that is serialized, hex-encoded data for block 'hash'.\n"
 
