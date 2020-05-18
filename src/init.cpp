@@ -1672,7 +1672,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         }
         fVerifyingBlocks = false;
 
-        //Inititalize zTRUMPWallet
+   /*     //Inititalize zTRUMPWallet
         uiInterface.InitMessage(_("Syncing zTRUMP wallet..."));
 
         bool fEnableZPivBackups = GetBoolArg("-backupztrump", true);
@@ -1681,7 +1681,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         //Load zerocoin mint hashes to memory
         pwalletMain->ztrumpTracker->Init();
         zwalletMain->LoadMintPoolFromDB();
-        zwalletMain->SyncWithChain();
+        zwalletMain->SyncWithChain();   */
     }  // (!fDisableWallet)
 #else  // ENABLE_WALLET
     LogPrintf("No wallet compiled in!\n");
