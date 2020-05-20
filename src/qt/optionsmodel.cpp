@@ -73,6 +73,10 @@ void OptionsModel::Init()
         settings.setValue("fHideZeroBalances", true);
     fHideZeroBalances = settings.value("fHideZeroBalances").toBool();
 
+    if (!settings.contains("fHideCommas"))
+        settings.setValue("fHideCommas", true);
+    fHideCommas = settings.value("fHideCommas").toBool();
+
     if (!settings.contains("fCoinControlFeatures"))
         settings.setValue("fCoinControlFeatures", true);
     fCoinControlFeatures = settings.value("fCoinControlFeatures").toBool();
@@ -253,6 +257,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return settings.value("nThreadsScriptVerif");
         case HideZeroBalances:
             return settings.value("fHideZeroBalances");
+        case HideCommas:
+            return settings.value("fHideCommas");
         case ZeromintEnable:
             return QVariant(fEnableZeromint);
         case ZeromintPercentage:
@@ -392,6 +398,12 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             fHideZeroBalances = value.toBool();
             settings.setValue("fHideZeroBalances", fHideZeroBalances);
             emit hideZeroBalancesChanged(fHideZeroBalances);
+            break;
+
+        case HideCommas:
+            fHideCommas = value.toBool();
+            settings.setValue("fHideCommas", fHideCommas);
+            emit hideCommasChanged(fHideCommas);
             break;
 
         case AnonymizeTrumpCoinAmount:

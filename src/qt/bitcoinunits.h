@@ -65,7 +65,8 @@ public:
     enum SeparatorStyle {
         separatorNever,
         separatorStandard,
-        separatorAlways
+        separatorAlways,
+        separatorCommas
     };
 
     //! @name Static API

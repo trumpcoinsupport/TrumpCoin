@@ -230,7 +230,7 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->thirdPartyTxUrls, OptionsModel::ThirdPartyTxUrls);
     mapper->addMapping(ui->checkBoxHideZeroBalances, OptionsModel::HideZeroBalances);
-
+    mapper->addMapping(ui->checkBoxHideCommas, OptionsModel::HideCommas);
     /* Patriotnode Tab */
     mapper->addMapping(ui->showPatriotnodesTab, OptionsModel::ShowPatriotnodesTab);
 }

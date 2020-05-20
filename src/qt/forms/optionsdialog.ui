@@ -608,6 +608,19 @@ https://www.transifex.com/trumpcoin-project/trumpcoin-project-translations</stri
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkBoxHideCommas">
+         <property name="toolTip">
+          <string>Hide balance commas</string>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Hide balance commas</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3_Display">
          <item>
           <widget class="QLabel" name="thirdPartyTxUrlsLabel">

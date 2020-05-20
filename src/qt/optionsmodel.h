@@ -48,6 +48,7 @@ public:
         ZeromintPercentage,  // int
         ZeromintPrefDenom,   // int
         HideZeroBalances,    // bool
+        HideCommas,    // bool
         AnonymizeTrumpCoinAmount, //int
         ShowPatriotnodesTab,  // bool
         Listen,              // bool
@@ -89,6 +90,7 @@ private:
     QString strThirdPartyTxUrls;
 
     bool fHideZeroBalances;
+    bool fHideCommas;
     /* settings that were overriden by command-line */
     QString strOverriddenByCommandLine;
 
@@ -103,6 +105,7 @@ signals:
     void anonymizeTrumpCoinAmountChanged(int);
     void coinControlFeaturesChanged(bool);
     void hideZeroBalancesChanged(bool);
+    void hideCommasChanged(bool);
 };
 
 #endif // BITCOIN_QT_OPTIONSMODEL_H
