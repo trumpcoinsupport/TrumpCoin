@@ -185,8 +185,17 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     frameBlocks->setContentsMargins(0, 0, 0, 0);
     frameBlocks->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     QHBoxLayout* frameBlocksLayout = new QHBoxLayout(frameBlocks);
-    frameBlocksLayout->setContentsMargins(3, 0, 3, 0);
-    frameBlocksLayout->setSpacing(3);
+    frameBlocksLayout->setContentsMargins(0, 0, 0, 0);
+    frameBlocksLayout->setSpacing(5);
+
+
+    QFrame* frameSpacer1 = new QFrame();
+    QHBoxLayout* frameSpacerLayout1 = new QHBoxLayout(frameSpacer1);
+    frameSpacerLayout1->addSpacerItem(new QSpacerItem(70,1));
+
+    QFrame* frameSpacer2 = new QFrame();
+    QHBoxLayout* frameSpacerLayout2 = new QHBoxLayout(frameSpacer2);
+    frameSpacerLayout2->addSpacerItem(new QSpacerItem(110,1));
     unitDisplayControl = new UnitDisplayStatusBarControl();
     labelStakingIcon = new QLabel();
     //labelAutoMintIcon = new QPushButton();
@@ -229,6 +238,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     progressBarLabel = new QLabel();
     progressBarLabel->setVisible(true);
     progressBarLabel->setObjectName("progressBarLabel");
+     progressBarLabel->setStyleSheet(".QLabel { padding-left:15px ; }");
     progressBar = new GUIUtil::ProgressBar();
     progressBar->setAlignment(Qt::AlignCenter);
     progressBar->setVisible(true);
@@ -243,6 +253,9 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
 
     statusBar()->addWidget(progressBarLabel);
     statusBar()->addWidget(progressBar);
+    statusBar()->addWidget(frameSpacer1);
+    statusBar()->addWidget(progressBar, 1);
+    statusBar()->addWidget(frameSpacer2);
     statusBar()->addPermanentWidget(frameBlocks);
 
     // Jump directly to tabs in RPC-console
