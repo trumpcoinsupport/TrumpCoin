@@ -213,7 +213,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     CAmount trumpAvailableBalance = nTotalBalance - immatureBalance - nLockedBalance - unconfirmedBalance;
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance + watchImmatureBalance;    
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance; // increment nLockedBalance twice because it was added to
-
+	if (trumpAvailableBalance < 0)
+	trumpAvailableBalance = 0;
     // zTRUMP Balance
     CAmount matureZerocoinBalance = zerocoinBalance - unconfirmedZerocoinBalance - immatureZerocoinBalance;
     // Percentages

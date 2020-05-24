@@ -115,7 +115,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     /* Open CSS when configured */
     this->setStyleSheet(GUIUtil::loadStyleSheet());
 
-    GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
+    GUIUtil::restoreWindowGeometry("nWindow", QSize(970, 650), this);
 
     QString windowTitle = tr("TrumpCoin Wallet") + " " + QString::fromStdString(FormatFullVersion());
 #ifdef ENABLE_WALLET
