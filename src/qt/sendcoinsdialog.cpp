@@ -277,11 +277,15 @@ void SendCoinsDialog::on_sendButton_clicked()
 
     // Format confirmation message
     QStringList formatted;
+    QSettings settings;
+
+    bool settingShowCommas = !settings.value("fHideCommas").toBool();
+    bool showCommas = settingShowCommas;
+	if (settingShowCommas){
     foreach (const SendCoinsRecipient& rcp, recipients) {
         // generate bold amount string
-        QString amount = "<b>" + BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), rcp.amount);
+        QString amount = "<b>" + BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), rcp.amount, false, BitcoinUnits::separatorCommas);
         amount.append("</b> ").append(strFunds);
-
         // generate monospace address string
         QString address = "<span style='font-family: monospace;'>" + rcp.address;
         address.append("</span>");
@@ -313,6 +317,42 @@ void SendCoinsDialog::on_sendButton_clicked()
         formatted.append(recipientElement);
     }
 
+	}else{
+    foreach (const SendCoinsRecipient& rcp, recipients) {
+        // generate bold amount string
+        QString amount = "<b>" + BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), rcp.amount, false, BitcoinUnits::separatorAlways);
+        amount.append("</b> ").append(strFunds);
+        // generate monospace address string
+        QString address = "<span style='font-family: monospace;'>" + rcp.address;
+        address.append("</span>");
+
+        QString recipientElement;
+
+        if (!rcp.paymentRequest.IsInitialized()) // normal payment
+        {
+            if (rcp.label.length() > 0) // label with address
+            {
+                recipientElement = tr("%1 to %2").arg(amount, GUIUtil::HtmlEscape(rcp.label));
+                recipientElement.append(QString(" (%1)").arg(address));
+            } else // just address
+            {
+                recipientElement = tr("%1 to %2").arg(amount, address);
+            }
+        } else if (!rcp.authenticatedMerchant.isEmpty()) // secure payment request
+        {
+            recipientElement = tr("%1 to %2").arg(amount, GUIUtil::HtmlEscape(rcp.authenticatedMerchant));
+        } else // insecure payment request
+        {
+            recipientElement = tr("%1 to %2").arg(amount, address);
+        }
+
+        if (CoinControlDialog::coinControl->fSplitBlock) {
+            recipientElement.append(tr(" split into %1 outputs using the UTXO splitter.").arg(CoinControlDialog::coinControl->nSplitBlock));
+        }
+
+        formatted.append(recipientElement);
+    }
+}
     fNewRecipientAllowed = false;
 
     // request unlock only if was locked or unlocked for mixing:
@@ -380,9 +420,16 @@ void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee,
     }
 
     // Show total amount + all alternative units
-    questionString.append(tr("Total Amount = <b>%1</b><br />= %2")
-                              .arg(BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), totalAmount))
-                              .arg(alternativeUnits.join("<br />= ")));
+    QSettings settings;
+    bool settingShowCommas = !settings.value("fHideCommas").toBool();
+    bool showCommas = settingShowCommas;
+	if (settingShowCommas){
+    questionString.append(tr("Total Amount = <b>%1</b>")
+                              .arg(BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), totalAmount, false, BitcoinUnits::separatorCommas)));
+	}else{
+    questionString.append(tr("Total Amount = <b>%1</b>")
+                              .arg(BitcoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), totalAmount, false, BitcoinUnits::separatorAlways)));
+	}
 
     // Limit number of displayed entries
     int messageEntries = formatted.size();
@@ -556,11 +603,18 @@ void SendCoinsDialog::setBalance(const CAmount& balance, const CAmount& unconfir
     Q_UNUSED(watchUnconfirmedBalance);
     Q_UNUSED(watchImmatureBalance);
 
-    if (model && model->getOptionsModel()) {
+
         uint64_t bal = 0;
         bal = balance;
-        ui->labelBalance->setText(BitcoinUnits::formatWithUnit(model->getOptionsModel()->getDisplayUnit(), bal));
-    }
+    QSettings settings;
+    bool settingShowCommas = !settings.value("fHideCommas").toBool();
+    bool showCommas = settingShowCommas;
+	if (settingShowCommas){
+        ui->labelBalance->setText(BitcoinUnits::formatWithUnit(model->getOptionsModel()->getDisplayUnit(), bal, false, BitcoinUnits::separatorCommas));
+	}else{
+        ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), bal, false, BitcoinUnits::separatorAlways));
+	}
+    
 }
 
 void SendCoinsDialog::updateDisplayUnit()

@@ -131,11 +131,11 @@ CoinControlDialog::CoinControlDialog(QWidget* parent, bool fMultisigEnabled) : Q
     // see https://github.com/bitcoin/bitcoin/issues/5716
     ui->treeWidget->headerItem()->setText(COLUMN_CHECKBOX, QString());
 
-    ui->treeWidget->setColumnWidth(COLUMN_CHECKBOX, 84);
-    ui->treeWidget->setColumnWidth(COLUMN_AMOUNT, 100);
+    ui->treeWidget->setColumnWidth(COLUMN_CHECKBOX, 60);
+    ui->treeWidget->setColumnWidth(COLUMN_AMOUNT, 140);
     ui->treeWidget->setColumnWidth(COLUMN_LABEL, 170);
-    ui->treeWidget->setColumnWidth(COLUMN_ADDRESS, 190);
-    ui->treeWidget->setColumnWidth(COLUMN_DATE, 80);
+    ui->treeWidget->setColumnWidth(COLUMN_ADDRESS, 240);
+    ui->treeWidget->setColumnWidth(COLUMN_DATE, 120);
     ui->treeWidget->setColumnWidth(COLUMN_CONFIRMATIONS, 100);
     ui->treeWidget->setColumnWidth(COLUMN_PRIORITY, 100);
     ui->treeWidget->setColumnHidden(COLUMN_TXHASH, true);         // store transacton hash in this column, but dont show it
@@ -672,15 +672,31 @@ void CoinControlDialog::updateLabels(WalletModel* model, QDialog* dialog)
     dialog->findChild<QLabel*>("labelCoinControlChangeText")->setEnabled(nPayAmount > 0);
     dialog->findChild<QLabel*>("labelCoinControlChange")->setEnabled(nPayAmount > 0);
 
+    QSettings settings;
+    bool settingShowCommas = !settings.value("fHideCommas").toBool();
+    bool showCommas = settingShowCommas;
+
     // stats
     l1->setText(QString::number(nQuantity));                            // Quantity
-    l2->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));   // Amount
+	if (settingShowCommas){
+    l2->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount, false, BitcoinUnits::separatorCommas));   // Amount
+	}else{
+    l2->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount, false, BitcoinUnits::separatorAlways));   // Amount
+	}
     l3->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nPayFee));   // Fee
-    l4->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAfterFee)); // After Fee
+	if (settingShowCommas){
+    l4->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAfterFee, false, BitcoinUnits::separatorCommas)); // After Fee
+	}else{
+    l4->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAfterFee, false, BitcoinUnits::separatorAlways)); // After Fee
+	}
     l5->setText(((nBytes > 0) ? "~" : "") + QString::number(nBytes));   // Bytes
     l6->setText(sPriorityLabel);                                        // Priority
     l7->setText(fDust ? tr("yes") : tr("no"));                          // Dust
-    l8->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nChange));   // Change
+	if (settingShowCommas){
+    l8->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nChange, false, BitcoinUnits::separatorCommas));   // Change
+	}else{
+    l8->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nChange, false, BitcoinUnits::separatorAlways));   // Change
+	}
     if (nPayFee > 0 && !(payTxFee.GetFeePerK() > 0 && fPayAtLeastCustomFee && nBytes < 1000)) {
         l3->setText("~" + l3->text());
         l4->setText("~" + l4->text());
@@ -841,8 +857,16 @@ void CoinControlDialog::updateView()
                 itemOutput->setText(COLUMN_LABEL, sLabel);
             }
 
+    QSettings settings;
+    bool settingShowCommas = !settings.value("fHideCommas").toBool();
+    bool showCommas = settingShowCommas;
+
             // amount
-            itemOutput->setText(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue));
+	if (settingShowCommas){
+            itemOutput->setText(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue, false, BitcoinUnits::separatorCommas));
+	}else{
+            itemOutput->setText(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue, false, BitcoinUnits::separatorAlways));
+	}
             itemOutput->setToolTip(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue));
             itemOutput->setText(COLUMN_AMOUNT_INT64, strPad(QString::number(out.tx->vout[out.i].nValue), 15, " ")); // padding so that sorting works correctly
 
