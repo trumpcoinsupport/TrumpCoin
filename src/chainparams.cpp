@@ -73,6 +73,9 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     (480000, uint256("0x82132ca023730da47f7cab222c7c870e08ec85d0e8b13a2371394a46107a1911"))
     (502930, uint256("0xfec31c4c764e5e94b15d04ec3d4455860b87b56d0c857cd856aea63a99e9b248"))
     (506085, uint256("0x17ab7ec9c12f2a91ec4f8de1c503a747c80a1c3d3cc8184457040c0aa27793cc"))
+    (530000, uint256("0x91724c59a27db2ddb0aef962fcc3778422e4c9cf6ef8ab3b82535c8f1595b615"))
+    (545000, uint256("0xae84886a3684ffaf8a9cd06ef40b42032bb3c878ae3b6f111ad6614ab7c06c17"))
+    (545273, uint256("0xf15fab89faea7e6581662c50aff90a0a0c0e22c988bff8b07fb8e9f20b20ce8d"))
     ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -187,7 +190,9 @@ public:
         vSeeds.push_back(CDNSSeedData("seed1", "seed1.trumpcoin.com"));
         vSeeds.push_back(CDNSSeedData("seed2", "seed2.trumpcoin.com"));
         vSeeds.push_back(CDNSSeedData("seed3", "seed3.trumpcoin.com"));
-
+        vSeeds.push_back(CDNSSeedData("seed4", "seed4.trumpcoin.com"));
+        vSeeds.push_back(CDNSSeedData("seed5", "seed5.trumpcoin.com"));
+        
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 66);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 29);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 156);
