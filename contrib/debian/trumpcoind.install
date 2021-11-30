@@ -1,0 +1,3 @@
+usr/local/bin/trumpcoind usr/bin
+usr/local/bin/trumpcoin-cli usr/bin
+debian/examples/trumpcoin.conf etc/trumpcoin

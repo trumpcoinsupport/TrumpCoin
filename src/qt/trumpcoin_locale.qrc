@@ -1,0 +1,15 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="de">locale/trumpcoin_de.qm</file>
+        <file alias="en">locale/trumpcoin_en.qm</file>
+        <file alias="en_US">locale/trumpcoin_en_US.qm</file>
+        <file alias="es">locale/trumpcoin_es.qm</file>
+        <file alias="fr_FR">locale/trumpcoin_fr_FR.qm</file>
+        <file alias="hr_HR">locale/trumpcoin_hr_HR.qm</file>
+        <file alias="it">locale/trumpcoin_it.qm</file>
+        <file alias="ko_KR">locale/trumpcoin_ko_KR.qm</file>
+        <file alias="nl">locale/trumpcoin_nl.qm</file>
+        <file alias="pl">locale/trumpcoin_pl.qm</file>
+        <file alias="ru">locale/trumpcoin_ru.qm</file>
+    </qresource>
+</RCC>

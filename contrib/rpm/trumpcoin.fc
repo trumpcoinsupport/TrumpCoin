@@ -1,0 +1,8 @@
+/usr/bin/trumpcoin-cli		--	gen_context(system_u:object_r:trumpcoin_exec_t,s0)
+/usr/sbin/trumpcoind		--	gen_context(system_u:object_r:trumpcoin_exec_t,s0)
+/usr/lib(64)?/trumpcoin/trumpcoind		--	gen_context(system_u:object_r:trumpcoin_exec_t,s0)
+
+/etc/trumpcoin(/.*)?		gen_context(system_u:object_r:trumpcoin_conf_t,s0)
+/var/lib/trumpcoin(/.*)?		gen_context(system_u:object_r:trumpcoin_var_lib_t,s0)
+
+(/var)?/run/trumpcoind(/.*)?   gen_context(system_u:object_r:trumpcoin_var_run_t,s0)

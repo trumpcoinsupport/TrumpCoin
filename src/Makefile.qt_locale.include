@@ -1,0 +1,12 @@
+QT_TS = \
+  qt/locale/trumpcoin_de.ts \
+  qt/locale/trumpcoin_en.ts \
+  qt/locale/trumpcoin_en_US.ts \
+  qt/locale/trumpcoin_es.ts \
+  qt/locale/trumpcoin_fr_FR.ts \
+  qt/locale/trumpcoin_hr_HR.ts \
+  qt/locale/trumpcoin_it.ts \
+  qt/locale/trumpcoin_ko_KR.ts \
+  qt/locale/trumpcoin_nl.ts \
+  qt/locale/trumpcoin_pl.ts \
+  qt/locale/trumpcoin_ru.ts

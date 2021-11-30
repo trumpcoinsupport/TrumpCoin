@@ -1,0 +1,6 @@
+usr/local/bin/trumpcoin-qt usr/bin
+share/pixmaps/trumpcoin32.xpm usr/share/pixmaps
+share/pixmaps/trumpcoin16.xpm usr/share/pixmaps
+share/pixmaps/trumpcoin128.png usr/share/pixmaps
+debian/trumpcoin-qt.desktop usr/share/applications
+debian/trumpcoin-qt.protocol usr/share/kde4/services/

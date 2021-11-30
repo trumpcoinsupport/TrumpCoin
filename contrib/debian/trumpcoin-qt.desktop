@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=TrumpCoin Core
+Comment=TrumpCoin P2P Cryptocurrency
+Comment[fr]=TrumpCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=TrumpCoin, eşten eşe kriptografik sanal para birimi
+Exec=trumpcoin-qt %u
+Terminal=false
+Type=Application
+Icon=trumpcoin128
+MimeType=x-scheme-handler/trumpcoin;
+Categories=Office;Finance;
+StartupWMClass=TrumpCoin-qt

@@ -1,0 +1,705 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/trumpcoin-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# trumpcoin qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/trumpcoin/forms/loadingdialog.ui \
+  qt/trumpcoin/forms/snackbar.ui \
+  qt/trumpcoin/forms/navmenuwidget.ui \
+  qt/trumpcoin/forms/lockunlock.ui \
+  qt/trumpcoin/forms/expandablebutton.ui \
+  qt/trumpcoin/forms/receivedialog.ui \
+  qt/trumpcoin/forms/balancebubble.ui \
+  qt/trumpcoin/forms/topbar.ui \
+  qt/trumpcoin/forms/txrow.ui \
+  qt/trumpcoin/forms/dashboardwidget.ui \
+  qt/trumpcoin/forms/addresslabelrow.ui \
+  qt/trumpcoin/forms/contactdropdownrow.ui \
+  qt/trumpcoin/forms/mninfodialog.ui \
+  qt/trumpcoin/forms/optionbutton.ui \
+  qt/trumpcoin/forms/patriotnodewizarddialog.ui \
+  qt/trumpcoin/forms/mnrow.ui \
+  qt/trumpcoin/forms/patriotnodeswidget.ui \
+  qt/trumpcoin/forms/myaddressrow.ui \
+  qt/trumpcoin/forms/csrow.ui \
+  qt/trumpcoin/forms/sendmemodialog.ui \
+  qt/trumpcoin/forms/sendchangeaddressdialog.ui \
+  qt/trumpcoin/forms/sendconfirmdialog.ui \
+  qt/trumpcoin/forms/sendcustomfeedialog.ui \
+  qt/trumpcoin/forms/sendmultirow.ui \
+  qt/trumpcoin/forms/send.ui \
+  qt/trumpcoin/forms/addnewaddressdialog.ui \
+  qt/trumpcoin/forms/addnewcontactdialog.ui \
+  qt/trumpcoin/forms/requestdialog.ui \
+  qt/trumpcoin/forms/receivewidget.ui \
+  qt/trumpcoin/forms/tooltipmenu.ui \
+  qt/trumpcoin/forms/addresseswidget.ui \
+  qt/trumpcoin/forms/defaultdialog.ui \
+  qt/trumpcoin/forms/coldstakingwidget.ui \
+  qt/trumpcoin/settings/forms/settingsbackupwallet.ui \
+  qt/trumpcoin/settings/forms/settingsexportcsv.ui \
+  qt/trumpcoin/settings/forms/settingsbittoolwidget.ui \
+  qt/trumpcoin/settings/forms/settingsconsolewidget.ui \
+  qt/trumpcoin/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/trumpcoin/settings/forms/settingsfaqwidget.ui \
+  qt/trumpcoin/settings/forms/settingsinformationwidget.ui \
+  qt/trumpcoin/settings/forms/settingsmainoptionswidget.ui \
+  qt/trumpcoin/settings/forms/settingssignmessagewidgets.ui \
+  qt/trumpcoin/settings/forms/settingswalletoptionswidget.ui \
+  qt/trumpcoin/settings/forms/settingswalletrepairwidget.ui \
+  qt/trumpcoin/settings/forms/settingswidget.ui \
+  qt/trumpcoin/forms/welcomecontentwidget.ui \
+  qt/trumpcoin/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/trumpcoin/moc_trumpcoingui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_rpcexecutor.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/trumpcoin/moc_loadingdialog.cpp \
+  qt/trumpcoin/moc_pwidget.cpp \
+  qt/trumpcoin/moc_focuseddialog.cpp \
+  qt/trumpcoin/moc_snackbar.cpp \
+  qt/trumpcoin/moc_navmenuwidget.cpp \
+  qt/trumpcoin/moc_lockunlock.cpp \
+  qt/trumpcoin/moc_expandablebutton.cpp \
+  qt/trumpcoin/moc_furabstractlistitemdelegate.cpp \
+  qt/trumpcoin/moc_receivedialog.cpp \
+  qt/trumpcoin/moc_pfborderimage.cpp \
+  qt/trumpcoin/moc_topbar.cpp \
+  qt/trumpcoin/moc_txrow.cpp \
+  qt/trumpcoin/moc_dashboardwidget.cpp \
+  qt/trumpcoin/moc_addresslabelrow.cpp \
+  qt/trumpcoin/moc_contactdropdownrow.cpp \
+  qt/trumpcoin/moc_mninfodialog.cpp \
+  qt/trumpcoin/moc_optionbutton.cpp \
+  qt/trumpcoin/moc_coldstakingmodel.cpp \
+  qt/trumpcoin/moc_mnmodel.cpp \
+  qt/trumpcoin/moc_patriotnodewizarddialog.cpp \
+  qt/trumpcoin/moc_mnrow.cpp \
+  qt/trumpcoin/moc_patriotnodeswidget.cpp \
+  qt/trumpcoin/moc_myaddressrow.cpp \
+  qt/trumpcoin/moc_csrow.cpp \
+  qt/trumpcoin/moc_contactsdropdown.cpp \
+  qt/trumpcoin/moc_sendchangeaddressdialog.cpp \
+  qt/trumpcoin/moc_sendconfirmdialog.cpp \
+  qt/trumpcoin/moc_sendcustomfeedialog.cpp \
+  qt/trumpcoin/moc_sendmemodialog.cpp \
+  qt/trumpcoin/moc_sendmultirow.cpp \
+  qt/trumpcoin/moc_send.cpp \
+  qt/trumpcoin/moc_addnewaddressdialog.cpp \
+  qt/trumpcoin/moc_addnewcontactdialog.cpp \
+  qt/trumpcoin/moc_requestdialog.cpp \
+  qt/trumpcoin/moc_receivewidget.cpp \
+  qt/trumpcoin/moc_tooltipmenu.cpp \
+  qt/trumpcoin/moc_addresseswidget.cpp \
+  qt/trumpcoin/moc_defaultdialog.cpp \
+  qt/trumpcoin/moc_coldstakingwidget.cpp \
+  qt/trumpcoin/settings/moc_settingsbackupwallet.cpp \
+  qt/trumpcoin/settings/moc_settingsexportcsv.cpp \
+  qt/trumpcoin/settings/moc_settingsbittoolwidget.cpp \
+  qt/trumpcoin/settings/moc_settingsconsolewidget.cpp \
+  qt/trumpcoin/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/trumpcoin/settings/moc_settingsfaqwidget.cpp \
+  qt/trumpcoin/settings/moc_settingsinformationwidget.cpp \
+  qt/trumpcoin/settings/moc_settingsmainoptionswidget.cpp \
+  qt/trumpcoin/settings/moc_settingssignmessagewidgets.cpp \
+  qt/trumpcoin/settings/moc_settingswalletoptionswidget.cpp \
+  qt/trumpcoin/settings/moc_settingswalletrepairwidget.cpp \
+  qt/trumpcoin/settings/moc_settingswidget.cpp \
+  qt/trumpcoin/moc_welcomecontentwidget.cpp \
+  qt/trumpcoin/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/trumpcoin.moc \
+  qt/intro.moc
+
+QT_QRC_CPP = qt/qrc_trumpcoin.cpp
+QT_QRC = qt/trumpcoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_trumpcoin_locale.cpp
+QT_QRC_LOCALE = qt/trumpcoin_locale.qrc
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/trumpcoin/trumpcoingui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsmodel.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/rpcexecutor.h \
+  qt/trafficgraphwidget.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/trumpcoin/prunnable.h \
+  qt/trumpcoin/pfborderimage.h \
+  qt/trumpcoin/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/trumpcoin/pwidget.h \
+  qt/trumpcoin/focuseddialog.h \
+  qt/trumpcoin/guitransactionsutils.h \
+  qt/trumpcoin/snackbar.h \
+  qt/trumpcoin/navmenuwidget.h \
+  qt/trumpcoin/lockunlock.h \
+  qt/trumpcoin/receivedialog.h \
+  qt/trumpcoin/furlistrow.h \
+  qt/trumpcoin/furabstractlistitemdelegate.h \
+  qt/trumpcoin/txviewholder.h \
+  qt/trumpcoin/qtutils.h \
+  qt/trumpcoin/expandablebutton.h \
+  qt/trumpcoin/balancebubble.h \
+  qt/trumpcoin/topbar.h \
+  qt/trumpcoin/txrow.h \
+  qt/trumpcoin/addressholder.h \
+  qt/trumpcoin/addressfilterproxymodel.h \
+  qt/trumpcoin/dashboardwidget.h \
+  qt/trumpcoin/addresslabelrow.h \
+  qt/trumpcoin/contactdropdownrow.h \
+  qt/trumpcoin/mninfodialog.h \
+  qt/trumpcoin/optionbutton.h \
+  qt/trumpcoin/coldstakingmodel.h \
+  qt/trumpcoin/mnmodel.h \
+  qt/trumpcoin/patriotnodewizarddialog.h \
+  qt/trumpcoin/mnrow.h \
+  qt/trumpcoin/patriotnodeswidget.h \
+  qt/trumpcoin/myaddressrow.h \
+  qt/trumpcoin/csrow.h \
+  qt/trumpcoin/contactsdropdown.h \
+  qt/trumpcoin/sendchangeaddressdialog.h \
+  qt/trumpcoin/sendconfirmdialog.h \
+  qt/trumpcoin/sendcustomfeedialog.h \
+  qt/trumpcoin/sendmemodialog.h \
+  qt/trumpcoin/sendmultirow.h \
+  qt/trumpcoin/send.h \
+  qt/trumpcoin/addnewaddressdialog.h \
+  qt/trumpcoin/addnewcontactdialog.h \
+  qt/trumpcoin/requestdialog.h \
+  qt/trumpcoin/receivewidget.h \
+  qt/trumpcoin/tooltipmenu.h \
+  qt/trumpcoin/addresseswidget.h \
+  qt/trumpcoin/defaultdialog.h \
+  qt/trumpcoin/coldstakingwidget.h \
+  qt/trumpcoin/settings/settingsbackupwallet.h \
+  qt/trumpcoin/settings/settingsexportcsv.h \
+  qt/trumpcoin/settings/settingsbittoolwidget.h \
+  qt/trumpcoin/settings/settingsconsolewidget.h \
+  qt/trumpcoin/settings/settingsdisplayoptionswidget.h \
+  qt/trumpcoin/settings/settingsfaqwidget.h \
+  qt/trumpcoin/settings/settingsinformationwidget.h \
+  qt/trumpcoin/settings/settingsmainoptionswidget.h \
+  qt/trumpcoin/settings/settingssignmessagewidgets.h \
+  qt/trumpcoin/settings/settingswalletoptionswidget.h \
+  qt/trumpcoin/settings/settingswalletrepairwidget.h \
+  qt/trumpcoin/settings/settingswidget.h \
+  qt/trumpcoin/welcomecontentwidget.h \
+  qt/trumpcoin/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/trumpcoin/res/img/bg-dashboard-banner.png \
+  qt/trumpcoin/res/img/bg-multi-number-dark.svg \
+  qt/trumpcoin/res/img/ic-check-locked.svg \
+  qt/trumpcoin/res/img/ic-nav-address.svg \
+  qt/trumpcoin/res/img/ic-update.svg \
+  qt/trumpcoin/res/img/bg-multi-number.svg \
+  qt/trumpcoin/res/img/ic-check-mint-off.svg \
+  qt/trumpcoin/res/img/ic-nav-cold-staking.svg \
+  qt/trumpcoin/res/img/ic-nav-cold-staking-active.svg \
+  qt/trumpcoin/res/img/ic-nav-dashboard-active.svg \
+  qt/trumpcoin/res/img/ic-wallet-status-locked.svg \
+  qt/trumpcoin/res/img/bg-splash.svg \
+  qt/trumpcoin/res/img/bg-splash.png \
+  qt/trumpcoin/res/img/ic-check-mint.svg \
+  qt/trumpcoin/res/img/ic-nav-dashboard-hover.svg \
+  qt/trumpcoin/res/img/ic-wallet-status-staking.svg \
+  qt/trumpcoin/res/img/ic-check-peers-off.svg \
+  qt/trumpcoin/res/img/ic-nav-dashboard.svg \
+  qt/trumpcoin/res/img/ic-wallet-status-unlocked.svg \
+  qt/trumpcoin/res/img/ic-check-peers.svg \
+  qt/trumpcoin/res/img/ic-nav-master-active.svg \
+  qt/trumpcoin/res/img/ic-watch-password-white.svg \
+  qt/trumpcoin/res/img/bg-welcome-container.jpg \
+  qt/trumpcoin/res/img/bg-welcome-container.png \
+  qt/trumpcoin/res/img/bg-welcome-container.svg \
+  qt/trumpcoin/res/img/bg-welcome-container@2x.png \
+  qt/trumpcoin/res/img/bg-welcome-container@3x.png \
+  qt/trumpcoin/res/img/ic-check-staking-off.svg \
+  qt/trumpcoin/res/img/ic-nav-master-hover.svg \
+  qt/trumpcoin/res/img/ic-watch-password.svg \
+  qt/trumpcoin/res/img/bg-welcome.jpg \
+  qt/trumpcoin/res/img/bg-welcome.svg \
+  qt/trumpcoin/res/img/bg-welcome@2x.jpg \
+  qt/trumpcoin/res/img/bg-welcome@3x.jpg \
+  qt/trumpcoin/res/img/bg-welcome.png \
+  qt/trumpcoin/res/img/ic-check-staking.svg \
+  qt/trumpcoin/res/img/ic-nav-master.svg \
+  qt/trumpcoin/res/img/img-dashboard-banner.jpg \
+  qt/trumpcoin/res/img/btn-radio-active.svg \
+  qt/trumpcoin/res/img/ic-check-sync-off.svg \
+  qt/trumpcoin/res/img/ic-nav-privacy-active.svg \
+  qt/trumpcoin/res/img/img-empty-contacts.svg \
+  qt/trumpcoin/res/img/btn-radio-off.svg \
+  qt/trumpcoin/res/img/ic-check-sync.png \
+  qt/trumpcoin/res/img/ic-nav-privacy-hover.svg \
+  qt/trumpcoin/res/img/img-empty-dark-contacts.svg \
+  qt/trumpcoin/res/img/ic-contact-arrow-down.svg \
+  qt/trumpcoin/res/img/ic-contact-arrow-down-white.svg \
+  qt/trumpcoin/res/img/ic-check-sync.svg \
+  qt/trumpcoin/res/img/ic-check-faq.svg \
+  qt/trumpcoin/res/img/ic-nav-privacy.svg \
+  qt/trumpcoin/res/img/img-empty-dark-error.svg \
+  qt/trumpcoin/res/img/ic-add-label.svg \
+  qt/trumpcoin/res/img/ic-pending.svg \
+  qt/trumpcoin/res/img/ic-check-theme-dark.svg \
+  qt/trumpcoin/res/img/ic-nav-receive-active.svg \
+  qt/trumpcoin/res/img/img-empty-dark-patriotnode.svg \
+  qt/trumpcoin/res/img/ic-add-liliac.svg \
+  qt/trumpcoin/res/img/ic-check-theme-light.svg \
+  qt/trumpcoin/res/img/ic-nav-receive-hover.svg \
+  qt/trumpcoin/res/img/img-empty-dark-multisend.svg \
+  qt/trumpcoin/res/img/ic-add-purple.svg \
+  qt/trumpcoin/res/img/ic-check-white.svg \
+  qt/trumpcoin/res/img/ic-nav-receive.svg \
+  qt/trumpcoin/res/img/img-empty-dark-peers.svg \
+  qt/trumpcoin/res/img/ic-add.svg \
+  qt/trumpcoin/res/img/ic-check.svg \
+  qt/trumpcoin/res/img/ic-nav-send-active.svg \
+  qt/trumpcoin/res/img/img-empty-dark-staking-off.svg \
+  qt/trumpcoin/res/img/img-empty-dark-staking-on.svg \
+  qt/trumpcoin/res/img/ic-address-book-grey.svg \
+  qt/trumpcoin/res/img/ic-chevron-left.svg \
+  qt/trumpcoin/res/img/ic-nav-send-hover.svg \
+  qt/trumpcoin/res/img/img-empty-dark-transactions.svg \
+  qt/trumpcoin/res/img/ic-address-book-white.svg \
+  qt/trumpcoin/res/img/ic-chevron-right.svg \
+  qt/trumpcoin/res/img/ic-chevron-right-liliac.svg \
+  qt/trumpcoin/res/img/ic-nav-send.svg \
+  qt/trumpcoin/res/img/img-empty-error.svg \
+  qt/trumpcoin/res/img/ic-address-book.svg \
+  qt/trumpcoin/res/img/ic-clear-liliac.svg \
+  qt/trumpcoin/res/img/ic-nav-settings-active.svg \
+  qt/trumpcoin/res/img/img-empty-patriotnode.svg \
+  qt/trumpcoin/res/img/ic-address-send-white.svg \
+  qt/trumpcoin/res/img/ic-clear-purple.svg \
+  qt/trumpcoin/res/img/ic-nav-settings-hover.svg \
+  qt/trumpcoin/res/img/img-empty-multisend.svg \
+  qt/trumpcoin/res/img/ic-address-send.svg \
+  qt/trumpcoin/res/img/ic-close-white.svg \
+  qt/trumpcoin/res/img/ic-nav-settings.svg \
+  qt/trumpcoin/res/img/img-empty-peers.svg \
+  qt/trumpcoin/res/img/img-empty-privacy.svg \
+  qt/trumpcoin/res/img/img-empty-privacy-dark.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-down-white.svg \
+  qt/trumpcoin/res/img/ic-close.svg \
+  qt/trumpcoin/res/img/ic-radio-liliac-on.svg \
+  qt/trumpcoin/res/img/img-empty-staking-off.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-down.svg \
+  qt/trumpcoin/res/img/ic-coin-piv.svg \
+  qt/trumpcoin/res/img/ic-receive-off.svg \
+  qt/trumpcoin/res/img/img-empty-staking-on.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-up-white.svg \
+  qt/trumpcoin/res/img/ic-coin-zpiv.png \
+  qt/trumpcoin/res/img/ic-receive-on.svg \
+  qt/trumpcoin/res/img/img-empty-transactions.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-up.svg \
+  qt/trumpcoin/res/img/ic-coin-zpiv.svg \
+  qt/trumpcoin/res/img/ic-received.svg \
+  qt/trumpcoin/res/img/img-logo-trumpcoin.png \
+  qt/trumpcoin/res/img/ic-arrow-drop-white-down.svg \
+  qt/trumpcoin/res/img/ic-combo-box.svg \
+  qt/trumpcoin/res/img/ic-send.svg \
+  qt/trumpcoin/res/img/img-logo-trumpcoin@2x.png \
+  qt/trumpcoin/res/img/ic-arrow-purple-down.svg \
+  qt/trumpcoin/res/img/ic-connect.svg \
+  qt/trumpcoin/res/img/ic-submenu-lock.svg \
+  qt/trumpcoin/res/img/img-logo-trumpcoin@3x.png \
+  qt/trumpcoin/res/img/img-logo-trumpcoin.svg \
+  qt/trumpcoin/res/img/ic-arrow-right-white.svg \
+  qt/trumpcoin/res/img/ic-arrow-left-white.svg \
+  qt/trumpcoin/res/img/ic-arrow-left.svg \
+  qt/trumpcoin/res/img/ic-copy-liliac.svg \
+  qt/trumpcoin/res/img/ic-submenu-staking.svg \
+  qt/trumpcoin/res/img/img-nav-logo-trumpcoin.png \
+  qt/trumpcoin/res/img/ic-arrow-right.svg \
+  qt/trumpcoin/res/img/ic-copy.svg \
+  qt/trumpcoin/res/img/ic-copy-big.svg \
+  qt/trumpcoin/res/img/ic-copy-big-white.svg \
+  qt/trumpcoin/res/img/ic-submenu-unlock.svg \
+  qt/trumpcoin/res/img/img-nav-logo.png \
+  qt/trumpcoin/res/img/ic-arrow-white-left.svg \
+  qt/trumpcoin/res/img/ic-exit.svg \
+  qt/trumpcoin/res/img/ic-switch-liliac-on.svg \
+  qt/trumpcoin/res/img/img-nav-logo.svg \
+  qt/trumpcoin/res/img/ic-arrow-white-right.svg \
+  qt/trumpcoin/res/img/ic-expand.svg \
+  qt/trumpcoin/res/img/ic-switch-off.svg \
+  qt/trumpcoin/res/img/img-qr-test-big.png \
+  qt/trumpcoin/res/img/ic-check-active.svg \
+  qt/trumpcoin/res/img/ic-folder.svg \
+  qt/trumpcoin/res/img/ic-switch-on.svg \
+  qt/trumpcoin/res/img/img-qr-test.png \
+  qt/trumpcoin/res/img/ic-check-box.svg \
+  qt/trumpcoin/res/img/ic-check-box-light.svg \
+  qt/trumpcoin/res/img/ic-check-box-dark-active.svg \
+  qt/trumpcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/trumpcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/trumpcoin/res/img/ic-label-liliac.svg \
+  qt/trumpcoin/res/img/ic-transaction-warning.svg \
+  qt/trumpcoin/res/img/ic-transaction-mint.svg \
+  qt/trumpcoin/res/img/ic-transaction-mint-inactive.svg \
+  qt/trumpcoin/res/img/ic-check-cold-staking.svg \
+  qt/trumpcoin/res/img/ic-check-cold-staking-off.svg \
+  qt/trumpcoin/res/img/ic-check-cold-staking-enabled.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/trumpcoin/res/img/img-qr.svg \
+  qt/trumpcoin/res/img/ic-check-connect-off.svg \
+  qt/trumpcoin/res/img/ic-check-tor-off.svg \
+  qt/trumpcoin/res/img/ic-check-tor.svg \
+  qt/trumpcoin/res/img/ic-label.svg \
+  qt/trumpcoin/res/img/ic-transaction-received.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-received.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-warning.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-mint.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/trumpcoin/res/img/ic-transaction-received-inactive.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/trumpcoin/res/img/img-welcome-step1.png \
+  qt/trumpcoin/res/img/ic-check-connect.svg \
+  qt/trumpcoin/res/img/ic-menu-hover.svg \
+  qt/trumpcoin/res/img/ic-transaction-sent.svg \
+  qt/trumpcoin/res/img/ic-transaction-sent-inactive.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-sent.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/trumpcoin/res/img/img-welcome-step2.png \
+  qt/trumpcoin/res/img/ic-check-dark.svg \
+  qt/trumpcoin/res/img/ic-mint.svg \
+  qt/trumpcoin/res/img/ic-transaction-staked.svg \
+  qt/trumpcoin/res/img/ic-transaction-staked-inactive.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-staked.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/trumpcoin/res/img/img-welcome-step3.png \
+  qt/trumpcoin/res/img/ic-check-liliac-on.svg \
+  qt/trumpcoin/res/img/ic-nav-address-active.svg \
+  qt/trumpcoin/res/img/ic-unlock-staking.svg \
+  qt/trumpcoin/res/img/img-welcome-step4.png \
+  qt/trumpcoin/res/img/ic-check-locked-off.svg \
+  qt/trumpcoin/res/img/ic-nav-address-hover.svg \
+  qt/trumpcoin/res/img/ic-update-liliac.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-down-purple.svg \
+  qt/trumpcoin/res/img/ic-arrow-drop-up-purple.svg \
+  qt/trumpcoin/res/img/ic-check-liliac-indeterminate.svg \
+  qt/trumpcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/trumpcoin/res/img/ic-transaction-stake-delegated.svg \
+  qt/trumpcoin/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/trumpcoin/res/img/ic-transaction-stake-hot.svg \
+  qt/trumpcoin/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/trumpcoin/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/trumpcoin/res/img/ic-transaction-cs-contract.svg \
+  qt/trumpcoin/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/trumpcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/trumpcoin/res/img/ic-information.svg \
+  qt/trumpcoin/res/img/ic-information-hover.svg \
+  qt/trumpcoin/res/img/ani-loading-dark.gif \
+  qt/trumpcoin/res/img/ani-loading.gif
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/trumpcoin/trumpcoingui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/rpcexecutor.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/trumpcoin/loadingdialog.cpp \
+  qt/trumpcoin/pwidget.cpp \
+  qt/trumpcoin/focuseddialog.cpp \
+  qt/trumpcoin/guitransactionsutils.cpp \
+  qt/trumpcoin/snackbar.cpp \
+  qt/trumpcoin/navmenuwidget.cpp \
+  qt/trumpcoin/lockunlock.cpp \
+  qt/trumpcoin/receivedialog.cpp \
+  qt/trumpcoin/furabstractlistitemdelegate.cpp \
+  qt/trumpcoin/txviewholder.cpp \
+  qt/trumpcoin/qtutils.cpp \
+  qt/trumpcoin/expandablebutton.cpp \
+  qt/trumpcoin/balancebubble.cpp \
+  qt/trumpcoin/topbar.cpp \
+  qt/trumpcoin/txrow.cpp \
+  qt/trumpcoin/addressholder.cpp \
+  qt/trumpcoin/addressfilterproxymodel.cpp \
+  qt/trumpcoin/dashboardwidget.cpp \
+  qt/trumpcoin/addresslabelrow.cpp \
+  qt/trumpcoin/contactdropdownrow.cpp \
+  qt/trumpcoin/contactsdropdown.cpp \
+  qt/trumpcoin/optionbutton.cpp \
+  qt/trumpcoin/mninfodialog.cpp \
+  qt/trumpcoin/coldstakingmodel.cpp \
+  qt/trumpcoin/mnmodel.cpp \
+  qt/trumpcoin/patriotnodewizarddialog.cpp \
+  qt/trumpcoin/mnrow.cpp \
+  qt/trumpcoin/patriotnodeswidget.cpp \
+  qt/trumpcoin/myaddressrow.cpp \
+  qt/trumpcoin/csrow.cpp \
+  qt/trumpcoin/sendchangeaddressdialog.cpp \
+  qt/trumpcoin/sendconfirmdialog.cpp \
+  qt/trumpcoin/sendcustomfeedialog.cpp \
+  qt/trumpcoin/sendmemodialog.cpp \
+  qt/trumpcoin/sendmultirow.cpp \
+  qt/trumpcoin/send.cpp \
+  qt/trumpcoin/addnewaddressdialog.cpp \
+  qt/trumpcoin/addnewcontactdialog.cpp \
+  qt/trumpcoin/requestdialog.cpp \
+  qt/trumpcoin/receivewidget.cpp \
+  qt/trumpcoin/tooltipmenu.cpp \
+  qt/trumpcoin/addresseswidget.cpp \
+  qt/trumpcoin/defaultdialog.cpp \
+  qt/trumpcoin/coldstakingwidget.cpp \
+  qt/trumpcoin/settings/settingsbackupwallet.cpp \
+  qt/trumpcoin/settings/settingsexportcsv.cpp \
+  qt/trumpcoin/settings/settingsbittoolwidget.cpp \
+  qt/trumpcoin/settings/settingsconsolewidget.cpp \
+  qt/trumpcoin/settings/settingsdisplayoptionswidget.cpp \
+  qt/trumpcoin/settings/settingsfaqwidget.cpp \
+  qt/trumpcoin/settings/settingsinformationwidget.cpp \
+  qt/trumpcoin/settings/settingsmainoptionswidget.cpp \
+  qt/trumpcoin/settings/settingssignmessagewidgets.cpp \
+  qt/trumpcoin/settings/settingswalletoptionswidget.cpp \
+  qt/trumpcoin/settings/settingswalletrepairwidget.cpp \
+  qt/trumpcoin/settings/settingswidget.cpp \
+  qt/trumpcoin/welcomecontentwidget.cpp \
+  qt/trumpcoin/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/trumpcoin/res/css/style_dark.css \
+  qt/trumpcoin/res/css/style_light.css
+
+BITCOIN_RC = qt/res/trumpcoin-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_trumpcoin_qt_OBJECTS) : | $(QT_MOC)
+
+# trumpcoin-qt binary #
+qt_trumpcoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_trumpcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_trumpcoin_qt_SOURCES = qt/trumpcoin.cpp
+if TARGET_DARWIN
+  qt_trumpcoin_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_trumpcoin_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_trumpcoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_trumpcoin_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_trumpcoin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_trumpcoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBSAPLING) $(LIBRUSTZCASH) $(LIBZCASH_LIBS) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(NATPMP_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+qt_trumpcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_trumpcoin_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/trumpcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/trumpcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/trumpcoin.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/trumpcoin_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name trumpcoin_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name trumpcoin $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/trumpcoin/*.gcda qt/trumpcoin/*.gcno qt/trumpcoin/settings/*.gcda qt/trumpcoin/settings/*.gcno qt/temp_trumpcoin_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+trumpcoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_trumpcoin_qt_OBJECTS) qt/trumpcoin-qt$(EXEEXT) $(LIBBITCOINQT)
+
+trumpcoin_qt : qt/trumpcoin-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@
