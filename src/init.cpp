@@ -1092,8 +1092,8 @@ bool AppInitParameterInteraction()
     if (gArgs.IsArgSet("-checklevel"))
         return UIError(strprintf(_("Error: Unsupported argument %s found. Checklevel must be level 4."), "-checklevel"));
     // Exit early if -patriotnode=1 and -listen=0
-    if (gArgs.GetBoolArg("-patriotnode", DEFAULT_PATRIOTNODE) && !gArgs.GetBoolArg("-listen", DEFAULT_LISTEN))
-        return UIError(strprintf(_("Error: %s must be true if %s is set."), "-listen", "-patriotnode"));
+    //if (gArgs.GetBoolArg("-patriotnode", DEFAULT_PATRIOTNODE) && !gArgs.GetBoolArg("-listen", DEFAULT_LISTEN))
+    //   return UIError(strprintf(_("Error: %s must be true if %s is set."), "-listen", "-patriotnode"));
     if (gArgs.GetBoolArg("-benchmark", false))
         UIWarning(strprintf(_("Warning: Unsupported argument %s ignored, use %s"), "-benchmark", "-debug=bench."));
 
