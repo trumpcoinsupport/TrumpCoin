@@ -497,7 +497,7 @@ BOOST_FIXTURE_TEST_CASE(dip3_protx, TestChain400Setup)
         invalidCoinbaseTx.vout.emplace_back(mnOut);
     }
     invalidCoinbaseTx.vout.emplace_back(
-            CTxOut(GetBlockValue(nHeight + 1) - GetPatriotnodePayment(),
+            CTxOut(GetBlockValue(nHeight + 1) - GetPatriotnodePayment(nHeight),
                    GetScriptForDestination(coinbaseKey.GetPubKey().GetID())));
     pblock->vtx[0] = MakeTransactionRef(invalidCoinbaseTx);
     pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
