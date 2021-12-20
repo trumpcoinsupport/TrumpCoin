@@ -838,6 +838,19 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 
     fsbridge::ifstream stream(GetConfigFile(confPath));
 
+    int linenumber = 1;
+    fs::path pathConfigFile = GetConfigFile(confPath);
+    fsbridge::ifstream streamConfig(pathConfigFile);
+    
+    if (!streamConfig.good()) {
+        FILE* configFile = fsbridge::fopen(pathConfigFile, "a");
+         if (configFile != NULL) {
+            std::string strHeader = "# Trumpcoin config file\n";
+            fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
+            fclose(configFile);
+         }
+    }   		
+
     // ok to not have a config file
     if (stream.good()) {
         ReadConfigStream(stream);
