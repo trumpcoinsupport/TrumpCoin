@@ -72,7 +72,7 @@ If you want to build the windows installer with `make deploy` you need [NSIS](ht
 
 Acquire the source in the usual way:
 
-    git clone https://github.com/trumpcoin-project/trumpcoin.git
+    git clone https://github.com/trumpcoinsupport/TrumpCoin.git trumpcoin
     cd trumpcoin
 
 ## Building for 64-bit Windows
