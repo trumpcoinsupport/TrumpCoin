@@ -1676,9 +1676,15 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     if (!isPoSBlock)
         nExpectedMint += nFees;
 
+    //Check that the block does not overmint
     CAmount nBudgetAmt = 0;     // If this is a superblock, amount to be paid to the winning proposal, otherwise 0
+    if (!IsBlockValueValid(pindex->nHeight, nExpectedMint, nMint, nBudgetAmt)) {
+        return state.DoS(100, error("%s: reward pays too much (actual=%s vs limit=%s)",
+                                    __func__, FormatMoney(nMint), FormatMoney(nExpectedMint)),
+                         REJECT_INVALID, "bad-blk-amount");
+    }
 
-	int nHeight;
+    int nHeight;
     // Patriotnode/Budget payments
     // !TODO: after transition to DPN is complete, check this also during IBD
     if (!fInitialBlockDownload) {
